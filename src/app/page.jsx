@@ -72,36 +72,36 @@ const KPI_DATA = [
   },
 ];
 
-const STATUS_DATA = [
-  {
-    title: "Total Pending Order",
-    value: "37,960 TK",
-    count: "2 Orders",
-    icon: Clock,
-    color: "text-amber-500",
-  },
-  {
-    title: "Total Processing Order",
-    value: "0 TK",
-    count: "0 Orders",
-    icon: RotateCw,
-    color: "text-info",
-  },
-  {
-    title: "Total Delivered Order",
-    value: "0 TK",
-    count: "0 Orders",
-    icon: CheckCircle,
-    color: "text-success",
-  },
-  {
-    title: "Total Cancelled Orders",
-    value: "0 TK",
-    count: "0 Orders",
-    icon: XCircle,
-    color: "text-error",
-  },
-];
+// const STATUS_DATA = [
+//   {
+//     title: "Total Pending Order",
+//     value: "37,960 TK",
+//     count: "2 Orders",
+//     icon: Clock,
+//     color: "text-amber-500",
+//   },
+//   {
+//     title: "Total Processing Order",
+//     value: "0 TK",
+//     count: "0 Orders",
+//     icon: RotateCw,
+//     color: "text-info",
+//   },
+//   {
+//     title: "Total Delivered Order",
+//     value: "0 TK",
+//     count: "0 Orders",
+//     icon: CheckCircle,
+//     color: "text-success",
+//   },
+//   {
+//     title: "Total Cancelled Orders",
+//     value: "0 TK",
+//     count: "0 Orders",
+//     icon: XCircle,
+//     color: "text-error",
+//   },
+// ];
 
 const SOURCE_SALES_DATA = [
   { name: "Website", sales: 46160 },
@@ -111,6 +111,13 @@ const SOURCE_SALES_DATA = [
 ];
 
 const products = [
+  {
+    name: "Sports Shoes For Men",
+    stock: "In Stock",
+    price: "730 TK",
+    sold: "1,534",
+    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
+  },
   {
     name: "Sports Shoes For Men",
     stock: "In Stock",
@@ -152,6 +159,12 @@ export default function EcomvacDashboard() {
     legend: { position: "bottom" },
     dataLabels: { enabled: false },
     stroke: { show: false },
+  };
+
+  const stockStyle = {
+    "In Stock": "bg-emerald-100 text-emerald-600",
+    "Few-left": "bg-blue-100 text-blue-600",
+    "Out Of Stock": "bg-red-100 text-red-600",
   };
 
   return (
@@ -324,14 +337,10 @@ export default function EcomvacDashboard() {
                       </div>
                     </td>
 
-                    <td>
+                    <td className="px-4 py-4">
                       <span
-                        className={`badge ${
-                          p.stock === "In Stock"
-                            ? "badge-success"
-                            : p.stock === "Few-left"
-                              ? "badge-info"
-                              : "badge-error"
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black border whitespace-nowrap ${
+                          stockStyle[p.stock]
                         }`}
                       >
                         {p.stock}
