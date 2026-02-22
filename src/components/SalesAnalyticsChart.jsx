@@ -86,7 +86,7 @@ export default function SalesAnalyticsChart() {
       data: [65, 35, 45, 75, 80, 85, 105, 100, 125, 160, 115, 118, 45, 70, 82],
     },
     {
-      name: "Sales",
+      name: "Orders",
       data: [25, 70, 85, 45, 55, 120, 160, 75, 70, 65, 72, 76, 82, 83, 115],
     },
   ];
