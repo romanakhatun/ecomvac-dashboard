@@ -16,6 +16,7 @@ import Revenue from "@/components/Revenue";
 import StateCard2 from "@/components/StateCard2";
 import SalesBySource from "@/components/SalesBySource";
 import LowStockAlert from "@/components/LowStockAlert";
+import TopSellingProducts from "@/components/TopSellingProducts";
 
 const KPI_DATA = [
   {
@@ -97,37 +98,6 @@ const KPI_DATA = [
 //   { name: "Messenger", sales: 9200 },
 //   { name: "Landing Page", sales: 12300 },
 // ];
-
-const products = [
-  {
-    name: "Sports Shoes For Men",
-    stock: "In Stock",
-    price: "730 TK",
-    sold: "1,534",
-    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
-  },
-  {
-    name: "Sports Shoes For Men",
-    stock: "In Stock",
-    price: "730 TK",
-    sold: "1,534",
-    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
-  },
-  {
-    name: "Beautiful Flower Frame",
-    stock: "Few-left",
-    price: "703 TK",
-    sold: "1,534",
-    img: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=200",
-  },
-  {
-    name: "Small Alarm Watch",
-    stock: "Out Of Stock",
-    price: "730 TK",
-    sold: "1,534",
-    img: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=200",
-  },
-];
 
 export default function EcomvacDashboard() {
   // const donutOptions = {
@@ -231,73 +201,8 @@ export default function EcomvacDashboard() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <LowStockAlert />
-        {/* <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-          <h3 className="font-bold text-lg text-slate-800 border-b pb-6 border-[#f0f0f0] mb-3">
-            Low Stock
-          </h3>
 
-          <div className="space-y-4">
-            {[
-              {
-                name: "Smart Watch",
-                stock: 2,
-                total: 50,
-                trend: "High Demand",
-              },
-              {
-                name: "Bluetooth Speaker",
-                stock: 3,
-                total: 40,
-                trend: "Steady",
-              },
-              {
-                name: "Gaming Mouse",
-                stock: 5,
-                total: 60,
-                trend: "Flash Sale",
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="group relative p-4 rounded-xl border border-slate-50 bg-slate-50/20"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex flex-col">
-                    <span className="text-sm font-black text-slate-700 group-hover:text-rose-600 transition-colors">
-                      {item.name}
-                    </span>
-                    <span className="text-[9px] font-bold text-rose-400 uppercase">
-                      {item.trend}
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-sm font-black text-rose-600">
-                      {item.stock}
-                    </span>
-                    <span className="text-[10px] font-bold text-slate-400">
-                      {" "}
-                      / {item.total}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                    <div
-                      className="bg-rose-500 h-full rounded-full"
-                      style={{ width: `${(item.stock / item.total) * 100}%` }}
-                    ></div>
-                  </div>
-                  <button className="opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold">
-                    Restock
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
-
-        <div className="card bg-white shadow-sm border border-slate-100 overflow-hidden lg:col-span-2">
+        {/* <div className="card bg-white shadow-sm border border-slate-100 overflow-hidden lg:col-span-2">
           <div className="flex items-center justify-between p-6 border-b border-slate-100">
             <h3 className="font-bold text-lg">Top Selling Products</h3>
           </div>
@@ -355,15 +260,14 @@ export default function EcomvacDashboard() {
               </tbody>
             </table>
           </div>
+        </div> */}
+
+        <div className="lg:col-span-2">
+          <TopSellingProducts />
         </div>
       </div>
 
-      {/* <div className="card bg-white shadow-sm mt-8 border border-slate-100 overflow-hidden"> */}
-      {/* <div className="p-6 border-b border-slate-50">
-          <h3 className="font-bold text-lg">Recent Orders</h3>
-        </div> */}
       <RecentOrdersTable />
-      {/* </div> */}
     </div>
   );
 }

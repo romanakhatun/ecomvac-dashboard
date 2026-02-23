@@ -1,44 +1,59 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Card, Table, Typography, Badge } from "antd";
+import { Card, Table, Typography } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
 
 const { Text, Title } = Typography;
 
 const products = [
   {
     key: "1",
-    name: "Wireless Headphones",
-    sold: 120,
-    revenue: "96,000 TK",
-    status: "In Stock",
-    img: "https://images.unsplash.com/photo-1518441902112-f1d6d0d9c1d5?w=200",
+    name: "Sports Shoes Men",
+    stockStatus: "In Stock",
+    price: "730 TK",
+    sold: "1,534",
+    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
   },
   {
     key: "2",
-    name: "Smart Watch",
-    sold: 98,
-    revenue: "78,400 TK",
-    status: "Low Stock",
-    img: "https://images.unsplash.com/photo-1511732351661-46dce4a2fbe4?w=200",
+    name: "Sports Shoes Men",
+    stockStatus: "Few-left",
+    price: "703 TK",
+    sold: "1,534",
+    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
   },
   {
     key: "3",
-    name: "Gaming Mouse",
-    sold: 85,
-    revenue: "42,500 TK",
-    status: "In Stock",
-    img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=200",
+    name: "Small Alarm Watch",
+    stockStatus: "In Stock",
+    price: "730 TK",
+    sold: "1,534",
+    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
   },
   {
     key: "4",
-    name: "Bluetooth Speaker",
-    sold: 76,
-    revenue: "38,000 TK",
-    status: "Out of Stock",
-    img: "https://images.unsplash.com/photo-1585386959984-a41552231658?w=200",
+    name: "Small Alarm Watch",
+    stockStatus: "Out Of Stock",
+    price: "730 TK",
+    sold: "1,534",
+    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
+  },
+  {
+    key: "5",
+    name: "Small Alarm Watch",
+    stockStatus: "Few-left",
+    price: "730 TK",
+    sold: "1,534",
+    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
   },
 ];
+
+const stockStatusStyle = {
+  "In Stock": "bg-emerald-100 text-emerald-600 border-emerald-200",
+  "Few-left": "bg-blue-100 text-blue-600 border-blue-200",
+  "Out Of Stock": "bg-red-100 text-red-600 border-red-200",
+};
 
 export default function TopSellingProducts() {
   const columns = [
@@ -46,67 +61,69 @@ export default function TopSellingProducts() {
       title: "PRODUCT",
       dataIndex: "name",
       key: "name",
+      width: 200,
       render: (_, record) => (
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div
-            style={{ borderRadius: "8px", overflow: "hidden", flexShrink: 0 }}
+            style={{
+              borderRadius: "8px",
+              overflow: "hidden",
+              flexShrink: 0,
+              width: "40px",
+              height: "40px",
+            }}
           >
             <Image
               src={record.img}
               alt={record.name}
-              width={44}
-              height={44}
+              width={50}
+              height={50}
               style={{ objectFit: "cover" }}
             />
           </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <Text strong style={{ fontSize: "13px", color: "#1f2937" }}>
-              {record.name}
-            </Text>
-            <Text type="secondary" style={{ fontSize: "11px" }}>
-              ID: #P-00{record.key}
-            </Text>
-          </div>
+          <Text strong style={{ fontSize: "13px", color: "#111827" }}>
+            {record.name}
+          </Text>
         </div>
       ),
+    },
+    {
+      title: "STOCK",
+      dataIndex: "stockStatus",
+      key: "stockStatus",
+      width: 130,
+      align: "center",
+      render: (status) => (
+        <span
+          className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black border whitespace-nowrap ${stockStatusStyle[status]}`}
+        >
+          {status.toUpperCase()}
+        </span>
+      ),
+    },
+    {
+      title: "PRICE",
+      dataIndex: "price",
+      key: "price",
+      width: 110,
+      render: (text) => <Text strong>{text}</Text>,
     },
     {
       title: "SOLD",
       dataIndex: "sold",
       key: "sold",
+      width: 100,
       align: "center",
-      render: (sold) => (
-        <Text style={{ fontSize: "13px", color: "#6b7280" }}>{sold} Sold</Text>
-      ),
     },
     {
-      title: "STATUS",
-      dataIndex: "status",
-      key: "status",
-      render: (status) => (
-        <Badge
-          color={
-            status === "In Stock"
-              ? "#10b981"
-              : status === "Low Stock"
-                ? "#f59e0b"
-                : "#ef4444"
-          }
-          text={
-            <span style={{ fontSize: "12px", color: "#6b7280" }}>{status}</span>
-          }
-        />
-      ),
-    },
-    {
-      title: "REVENUE",
-      dataIndex: "revenue",
-      key: "revenue",
-      align: "right",
-      render: (text) => (
-        <Text strong style={{ color: "#111827", fontSize: "13px" }}>
-          {text}
-        </Text>
+      title: "ACTION",
+      key: "action",
+      width: 100,
+      align: "center",
+      render: () => (
+        <button className="flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded transition-colors">
+          <EyeOutlined /> VIEW
+        </button>
       ),
     },
   ];
@@ -115,35 +132,71 @@ export default function TopSellingProducts() {
     <Card
       variant={false}
       style={{
-        borderRadius: 16,
-        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.02)",
+        borderRadius: "16px",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
+        overflow: "hidden",
       }}
-      styles={{ body: { padding: "0" } }}
+      styles={{ body: { padding: 0 } }}
     >
       <div style={{ padding: "24px 24px 10px 24px" }}>
-        <Title level={5} style={{ margin: 0, fontWeight: 700 }}>
+        <Title level={4} style={{ margin: 0 }}>
           Top Selling Products
         </Title>
       </div>
 
-      <Table
-        dataSource={products}
-        columns={columns}
-        pagination={false}
-        showHeader={true}
-        style={{ width: "100%" }}
-      />
+      <div className="custom-table-container">
+        <Table
+          dataSource={products}
+          columns={columns}
+          pagination={false}
+          scroll={{ x: 600 }}
+          rowKey="key"
+        />
+      </div>
+
+      <style jsx global>{`
+        /* ওভারল্যাপ সমস্যা ফিক্স করার জন্য ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট করা */
+        .ant-table-cell-fix-left,
+        .ant-table-cell-fix-right {
+          background: #fff !important;
+        }
+
+        /* হেডার স্টাইল */
+        .ant-table-thead > tr > th {
+          background-color: #f8fafc !important;
+          color: #64748b !important;
+          font-size: 11px !important;
+          font-weight: 700 !important;
+          text-transform: uppercase;
+          border-bottom: 1px solid #f1f5f9 !important;
+          padding: 12px 24px !important;
+        }
+
+        /* রো বর্ডার এবং প্যাডিং */
+        .ant-table-tbody > tr > td {
+          border-bottom: 1px solid #f1f5f9 !important;
+          padding: 12px 24px !important;
+        }
+
+        /* কার্ডের নিচে রাউন্ড কর্নার নিশ্চিত করা */
+        .ant-table-wrapper {
+          border-radius: 0 0 16px 16px !important;
+          overflow: hidden !important;
+        }
+
+        .ant-table-tbody > tr:last-child > td {
+          border-bottom: none !important;
+        }
+
+        /* মোবাইল স্ক্রলবার ডিজাইন */
+        .ant-table-body::-webkit-scrollbar {
+          height: 5px;
+        }
+        .ant-table-body::-webkit-scrollbar-thumb {
+          background: #e2e8f0;
+          border-radius: 10px;
+        }
+      `}</style>
     </Card>
   );
 }
-
-<style jsx global>{`
-  .ant-table-wrapper .ant-table-tbody > tr > td {
-    border-bottom: 1px solid #f3f4f6 !important; /* হালকা গ্রে কালার */
-    padding: 16px 20px !important; /* প্রফেশনাল স্পেসিং */
-  }
-
-  .ant-table-wrapper .ant-table-row:last-child td {
-    border-bottom: none !important;
-  }
-`}</style>;

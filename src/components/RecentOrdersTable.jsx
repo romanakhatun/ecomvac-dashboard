@@ -5,6 +5,7 @@ import { Table, Typography, Card } from "antd";
 const { Text, Title } = Typography;
 
 const orders = [
+  // ... (আপনার দেওয়া আগের ডাটা)
   {
     key: "1",
     date: "Feb 14, 2026",
@@ -67,7 +68,6 @@ const orders = [
   },
 ];
 
-// আপনার অরিজিনাল স্ট্যাটাস স্টাইল বজায় রাখা হয়েছে
 const statusStyle = {
   Delivered: "bg-emerald-100 text-emerald-600 border-emerald-200",
   Pending: "bg-blue-100 text-blue-600 border-blue-200",
@@ -91,10 +91,15 @@ export default function RecentOrders() {
     {
       title: "DATE",
       key: "date",
-      width: 150,
+      width: 140, // পর্যাপ্ত উইডথ নিশ্চিত করা হয়েছে
       render: (_, record) => (
-        <div style={{ textAlign: "left" }}>
-          <Text strong style={{ fontSize: "13px", display: "block" }}>
+        <div style={{ whiteSpace: "nowrap" }}>
+          {" "}
+          {/* টেক্সট ভাঙা বন্ধ করবে */}
+          <Text
+            strong
+            style={{ fontSize: "13px", display: "block", lineHeight: "1.2" }}
+          >
             {record.date}
           </Text>
           <Text type="secondary" style={{ fontSize: "11px" }}>
@@ -107,9 +112,9 @@ export default function RecentOrders() {
       title: "CUSTOMER",
       dataIndex: "name",
       key: "name",
-      width: 150,
+      width: 160,
       render: (text) => (
-        <Text strong style={{ color: "#111827" }}>
+        <Text strong style={{ color: "#111827", whiteSpace: "nowrap" }}>
           {text}
         </Text>
       ),
@@ -119,6 +124,7 @@ export default function RecentOrders() {
       dataIndex: "phone",
       key: "phone",
       width: 130,
+      render: (text) => <span style={{ whiteSpace: "nowrap" }}>{text}</span>,
     },
     {
       title: "METHOD",
@@ -137,8 +143,12 @@ export default function RecentOrders() {
       dataIndex: "amount",
       key: "amount",
       align: "right",
-      width: 120,
-      render: (text) => <Text strong>{text} TK</Text>,
+      width: 110,
+      render: (text) => (
+        <Text strong style={{ whiteSpace: "nowrap" }}>
+          {text} TK
+        </Text>
+      ),
     },
     {
       title: "STATUS",
@@ -150,7 +160,7 @@ export default function RecentOrders() {
         <span
           className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black border whitespace-nowrap ${statusStyle[status]}`}
         >
-          {status}
+          {status.toUpperCase()}
         </span>
       ),
     },
@@ -159,10 +169,14 @@ export default function RecentOrders() {
   return (
     <Card
       variant={false}
-      style={{ borderRadius: 16, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}
+      style={{
+        borderRadius: 16,
+        boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
+        overflow: "hidden",
+      }}
       styles={{ body: { padding: 0 } }}
     >
-      <div style={{ padding: "24px 24px 10px 24px" }}>
+      <div style={{ padding: "20px 24px" }}>
         <Title level={4} style={{ margin: 0 }}>
           Recent Orders
         </Title>
@@ -172,7 +186,7 @@ export default function RecentOrders() {
         dataSource={orders}
         columns={columns}
         pagination={false}
-        scroll={{ x: 800 }}
+        scroll={{ x: 850 }} // কন্টেন্ট অনুযায়ী স্ক্রল ভ্যালু বাড়ানো হয়েছে
         rowKey="key"
       />
 
@@ -183,25 +197,18 @@ export default function RecentOrders() {
           font-size: 11px !important;
           font-weight: 700 !important;
           text-transform: uppercase;
-          padding: 12px 24px !important;
           border-bottom: 1px solid #f1f5f9 !important;
+          padding: 12px 24px !important;
         }
-
         .ant-table-tbody > tr > td {
           border-bottom: 1px solid #f1f5f9 !important;
-          // padding: 16px 24px !important;
+          padding: 14px 24px !important;
         }
-
-        .ant-table-wrapper .ant-table-row:last-child td {
+        .ant-table-tbody > tr:last-child > td {
           border-bottom: none !important;
         }
-
-        .ant-table-row:hover > td {
-          background-color: #f9fafb !important;
-        }
-
         .ant-table-body::-webkit-scrollbar {
-          height: 6px;
+          height: 5px;
         }
         .ant-table-body::-webkit-scrollbar-thumb {
           background: #e2e8f0;
