@@ -14,13 +14,13 @@ import {
   Trash,
 } from "lucide-react";
 import Image from "next/image";
-import { AlertTriangle, ChevronRight } from "lucide-react";
 import StateCard from "@/components/StateCard";
 import SalesAnalyticsChart from "@/components/SalesAnalyticsChart";
 import RecentOrdersTable from "@/components/RecentOrdersTable";
 import PendingTrendCard from "@/components/PendingTrendCard";
 import ProcessingTrendCard from "@/components/ProcessingTrendCard";
 import DeliveredTrendCard from "@/components/DeliveredTrendCard";
+import Revenue from "@/components/Revenue";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -168,7 +168,7 @@ export default function EcomvacDashboard() {
   };
 
   return (
-    <div className="p-4 lg:p-8 bg-[#f9fafb] min-h-screen text-slate-800">
+    <div className="p-4 lg:p-8  min-h-screen text-slate-800">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tight">
@@ -179,11 +179,14 @@ export default function EcomvacDashboard() {
           </p>
         </div>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {KPI_DATA.map((item, i) => (
           <StateCard item={item} key={i} />
         ))}
+      </div>
+
+      <div className="mb-8">
+        <Revenue />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -229,13 +232,11 @@ export default function EcomvacDashboard() {
           />
         </div>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <PendingTrendCard />
         <ProcessingTrendCard />
         <DeliveredTrendCard />
       </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
           <h3 className="font-bold text-lg text-slate-800 border-b pb-6 border-[#f0f0f0] mb-3">
@@ -363,7 +364,6 @@ export default function EcomvacDashboard() {
           </div>
         </div>
       </div>
-
       <div className="card bg-white shadow-sm mt-8 border border-slate-100 overflow-hidden">
         <div className="p-6 border-b border-slate-50">
           <h3 className="font-bold text-lg">Recent Orders</h3>

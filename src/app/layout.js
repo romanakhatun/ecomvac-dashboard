@@ -1,15 +1,6 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import DashboardLayout from "@/components/DashboardLayout";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 export const metadata = {
   title: "Create Next App",
@@ -19,10 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        <AntdRegistry>
+          <DashboardLayout>{children}</DashboardLayout>
+        </AntdRegistry>
       </body>
     </html>
   );
