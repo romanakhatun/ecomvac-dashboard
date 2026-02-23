@@ -5,7 +5,6 @@ import { Table, Typography, Card } from "antd";
 const { Text, Title } = Typography;
 
 const orders = [
-  // ... (আপনার দেওয়া আগের ডাটা)
   {
     key: "1",
     date: "Feb 14, 2026",
@@ -91,11 +90,10 @@ export default function RecentOrders() {
     {
       title: "DATE",
       key: "date",
-      width: 140, // পর্যাপ্ত উইডথ নিশ্চিত করা হয়েছে
+      width: 140,
       render: (_, record) => (
         <div style={{ whiteSpace: "nowrap" }}>
           {" "}
-          {/* টেক্সট ভাঙা বন্ধ করবে */}
           <Text
             strong
             style={{ fontSize: "13px", display: "block", lineHeight: "1.2" }}
@@ -186,35 +184,9 @@ export default function RecentOrders() {
         dataSource={orders}
         columns={columns}
         pagination={false}
-        scroll={{ x: 850 }} // কন্টেন্ট অনুযায়ী স্ক্রল ভ্যালু বাড়ানো হয়েছে
+        scroll={{ x: 850 }}
         rowKey="key"
       />
-
-      <style jsx global>{`
-        .ant-table-thead > tr > th {
-          background-color: #f8fafc !important;
-          color: #64748b !important;
-          font-size: 11px !important;
-          font-weight: 700 !important;
-          text-transform: uppercase;
-          border-bottom: 1px solid #f1f5f9 !important;
-          padding: 12px 24px !important;
-        }
-        .ant-table-tbody > tr > td {
-          border-bottom: 1px solid #f1f5f9 !important;
-          padding: 14px 24px !important;
-        }
-        .ant-table-tbody > tr:last-child > td {
-          border-bottom: none !important;
-        }
-        .ant-table-body::-webkit-scrollbar {
-          height: 5px;
-        }
-        .ant-table-body::-webkit-scrollbar-thumb {
-          background: #e2e8f0;
-          border-radius: 10px;
-        }
-      `}</style>
     </Card>
   );
 }

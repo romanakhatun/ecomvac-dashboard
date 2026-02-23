@@ -13,8 +13,8 @@ export default function LowStockCompact() {
   return (
     <Card
       title={
-        <Title level={5} style={{ margin: 0, fontWeight: 700 }}>
-          Low Stock Alert
+        <Title level={4} style={{ margin: 0 }}>
+          Recent Orders
         </Title>
       }
       extra={

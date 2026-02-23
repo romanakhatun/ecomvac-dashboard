@@ -12,74 +12,85 @@ const StateCard2 = ({ item }) => {
       variant={false}
       hoverable
       style={{
-        borderRadius: "12px",
-        boxShadow:
-          "0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)",
+        borderRadius: "16px", // আগের কোডের সাথে মিল রাখতে ১৬পিক্সেল
+        boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
+        border: "1px solid #f1f5f9",
       }}
+      styles={{ body: { padding: "20px" } }}
     >
       <Flex justify="space-between" align="flex-start">
         <Space orientation="vertical" size={0}>
           <Text
-            type="secondary"
             style={{
-              fontSize: "11px",
+              fontSize: "12px",
               fontWeight: 700,
+              color: "#64748b",
               textTransform: "uppercase",
-              letterSpacing: "0.1em",
+              letterSpacing: "0.02em",
+              display: "block",
+              marginBottom: "4px",
             }}
           >
             {item.title}
           </Text>
+
+          {/* Main Value */}
           <Title
             level={3}
             style={{
-              margin: "4px 0 0 0",
+              margin: 0,
               fontWeight: 850,
-              color: "#1f2937",
+              color: "#111827", // Slate-900 (Darker)
+              fontSize: "24px",
+              letterSpacing: "-0.02em",
             }}
           >
             {item.value}
           </Title>
         </Space>
 
+        {/* Icon Container */}
         <div
           style={{
-            padding: "12px",
-            borderRadius: "14px",
-            backgroundColor: item.bg_hex || "#f0f5ff",
-            color: item.color_hex || "#1677ff",
+            padding: "10px",
+            borderRadius: "12px",
+            backgroundColor: item.bgHex || "#eff6ff",
+            color: item.colorHex || "#2563eb",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            transition: "all 0.3s ease",
           }}
         >
-          <item.icon style={{ fontSize: "22px" }} />
+          <item.icon style={{ fontSize: "20px" }} />
         </div>
       </Flex>
 
-      <Flex align="center" gap={8} style={{ marginTop: "20px" }}>
-        {/* Ant Design Tag for the Trend */}
+      {/* Footer (Trend & Sub) */}
+      <Flex align="center" gap={8} style={{ marginTop: "16px" }}>
         <Tag
-          variant="filled"
-          color={trendStatus}
+          bordered={false}
+          color={trendStatus === "success" ? "green" : "red"}
           icon={item.isUp ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
           style={{
             margin: 0,
-            fontWeight: "bold",
+            fontWeight: 700,
             borderRadius: "6px",
             fontSize: "11px",
-            padding: "0 8px",
+            padding: "0 6px",
+            display: "flex",
+            alignItems: "center",
           }}
         >
           {item.trend}
         </Tag>
 
-        {/* Subtext */}
-        <Text type="secondary" style={{ fontSize: "12px" }}>
+        <Text style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 500 }}>
           {item.sub}
         </Text>
       </Flex>
     </Card>
   );
 };
+
 export default StateCard2;

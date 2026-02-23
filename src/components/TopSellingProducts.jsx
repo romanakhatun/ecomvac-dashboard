@@ -71,17 +71,20 @@ export default function TopSellingProducts() {
               flexShrink: 0,
               width: "40px",
               height: "40px",
+              position: "relative",
             }}
           >
             <Image
               src={record.img}
               alt={record.name}
-              width={50}
-              height={50}
+              fill
               style={{ objectFit: "cover" }}
             />
           </div>
-          <Text strong style={{ fontSize: "13px", color: "#111827" }}>
+          <Text
+            strong
+            style={{ fontSize: "13px", color: "#111827", whiteSpace: "nowrap" }}
+          >
             {record.name}
           </Text>
         </div>
@@ -106,7 +109,11 @@ export default function TopSellingProducts() {
       dataIndex: "price",
       key: "price",
       width: 110,
-      render: (text) => <Text strong>{text}</Text>,
+      render: (text) => (
+        <Text strong style={{ whiteSpace: "nowrap" }}>
+          {text}
+        </Text>
+      ),
     },
     {
       title: "SOLD",
@@ -149,19 +156,20 @@ export default function TopSellingProducts() {
           dataSource={products}
           columns={columns}
           pagination={false}
-          scroll={{ x: 600 }}
+          scroll={{ x: 700 }}
           rowKey="key"
         />
       </div>
 
       <style jsx global>{`
-        /* ওভারল্যাপ সমস্যা ফিক্স করার জন্য ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট করা */
-        .ant-table-cell-fix-left,
-        .ant-table-cell-fix-right {
-          background: #fff !important;
+        .ant-table {
+          background: transparent !important;
         }
 
-        /* হেডার স্টাইল */
+        .ant-table-container {
+          border-radius: 0 !important;
+        }
+
         .ant-table-thead > tr > th {
           background-color: #f8fafc !important;
           color: #64748b !important;
@@ -170,15 +178,15 @@ export default function TopSellingProducts() {
           text-transform: uppercase;
           border-bottom: 1px solid #f1f5f9 !important;
           padding: 12px 24px !important;
+          border-top: none !important;
         }
 
-        /* রো বর্ডার এবং প্যাডিং */
         .ant-table-tbody > tr > td {
           border-bottom: 1px solid #f1f5f9 !important;
-          padding: 12px 24px !important;
+          // padding: 12px 24px !important;
+          background: #ffffff !important;
         }
 
-        /* কার্ডের নিচে রাউন্ড কর্নার নিশ্চিত করা */
         .ant-table-wrapper {
           border-radius: 0 0 16px 16px !important;
           overflow: hidden !important;
@@ -188,7 +196,14 @@ export default function TopSellingProducts() {
           border-bottom: none !important;
         }
 
-        /* মোবাইল স্ক্রলবার ডিজাইন */
+        .ant-table-row:hover > td {
+          background-color: #f9fafb !important;
+        }
+
+        .ant-table-content {
+          overflow-x: auto !important;
+        }
+
         .ant-table-body::-webkit-scrollbar {
           height: 5px;
         }
