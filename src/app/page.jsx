@@ -15,6 +15,7 @@ import DeliveredTrendCard from "@/components/DeliveredTrendCard";
 import Revenue from "@/components/Revenue";
 import StateCard2 from "@/components/StateCard2";
 import SalesBySource from "@/components/SalesBySource";
+import LowStockAlert from "@/components/LowStockAlert";
 
 const KPI_DATA = [
   {
@@ -229,7 +230,8 @@ export default function EcomvacDashboard() {
         <DeliveredTrendCard />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+        <LowStockAlert />
+        {/* <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
           <h3 className="font-bold text-lg text-slate-800 border-b pb-6 border-[#f0f0f0] mb-3">
             Low Stock
           </h3>
@@ -293,7 +295,7 @@ export default function EcomvacDashboard() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <div className="card bg-white shadow-sm border border-slate-100 overflow-hidden lg:col-span-2">
           <div className="flex items-center justify-between p-6 border-b border-slate-100">
@@ -355,12 +357,13 @@ export default function EcomvacDashboard() {
           </div>
         </div>
       </div>
-      <div className="card bg-white shadow-sm mt-8 border border-slate-100 overflow-hidden">
-        <div className="p-6 border-b border-slate-50">
+
+      {/* <div className="card bg-white shadow-sm mt-8 border border-slate-100 overflow-hidden"> */}
+      {/* <div className="p-6 border-b border-slate-50">
           <h3 className="font-bold text-lg">Recent Orders</h3>
-        </div>
-        <RecentOrdersTable />
-      </div>
+        </div> */}
+      <RecentOrdersTable />
+      {/* </div> */}
     </div>
   );
 }

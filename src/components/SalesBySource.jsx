@@ -1,5 +1,6 @@
+"use client";
 import React, { useState } from "react";
-import { Card, Typography, Flex, List, Badge } from "antd";
+import { Card, Typography, Flex, Badge } from "antd";
 import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
 
 const { Text, Title } = Typography;
@@ -22,14 +23,14 @@ const SalesBySourceInteractive = () => {
 
   return (
     <Card
-      bordered={false}
+      variant={false}
       style={{
         borderRadius: 20,
         boxShadow: "0 1px 2px rgba(0, 0, 0, 0.03)",
         maxWidth: 400,
       }}
     >
-      <Title level={5} style={{ marginBottom: 20, fontWeight: 700 }}>
+      <Title level={4} style={{ marginBottom: 20 }}>
         Sales by Source
       </Title>
 
@@ -109,16 +110,15 @@ const SalesBySourceInteractive = () => {
         </ResponsiveContainer>
       </div>
 
-      <List
-        style={{ marginTop: 15 }}
-        dataSource={SOURCE_SALES_DATA}
-        renderItem={(item, index) => (
-          <List.Item
+      {/* List logic replaced with standard map to avoid deprecation warnings */}
+      <div style={{ marginTop: 15, display: "flex", flexDirection: "column" }}>
+        {SOURCE_SALES_DATA.map((item, index) => (
+          <div
+            key={item.name}
             onMouseEnter={() => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
             style={{
               padding: "10px 0",
-              border: "none",
               cursor: "pointer",
               backgroundColor:
                 activeIndex === index ? "#f9fafb" : "transparent",
@@ -156,9 +156,9 @@ const SalesBySourceInteractive = () => {
                 {item.sales.toLocaleString()} TK
               </Text>
             </Flex>
-          </List.Item>
-        )}
-      />
+          </div>
+        ))}
+      </div>
     </Card>
   );
 };

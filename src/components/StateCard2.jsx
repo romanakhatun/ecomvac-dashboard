@@ -1,45 +1,3 @@
-// import React from "react";
-// import { Card, Statistic, Tag } from "antd";
-// import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
-
-// const StateCard2 = ({ item }) => {
-//   return (
-//     <Card
-//       variant={false}
-//       className="hover:bg-slate-50 transition-colors cursor-default"
-//     >
-//       <div className="flex justify-between items-start">
-//         <Statistic
-//           title={
-//             <span className="text-gray-500 font-medium uppercase text-xs tracking-wider">
-//               {item.title}
-//             </span>
-//           }
-//           value={item.value}
-//           valueStyle={{ fontWeight: 800, fontSize: "24px" }}
-//         />
-//         <div
-//           className={`p-2 rounded-lg ${item.isUp ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"}`}
-//         >
-//           <item.icon className="text-xl" />
-//         </div>
-//       </div>
-
-//       <div className="mt-3 flex items-center gap-2">
-//         <Tag
-//           variant={false}
-//           color={item.isUp ? "success" : "error"}
-//           icon={item.isUp ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
-//           className="font-bold rounded-full"
-//         >
-//           {item.trend}
-//         </Tag>
-//         <span className="text-gray-400 text-xs">{item.sub}</span>
-//       </div>
-//     </Card>
-//   );
-// };
-// export default StateCard2;
 import React from "react";
 import { Card, Tag, Typography, Space, Flex } from "antd";
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
@@ -102,7 +60,7 @@ const StateCard2 = ({ item }) => {
       <Flex align="center" gap={8} style={{ marginTop: "20px" }}>
         {/* Ant Design Tag for the Trend */}
         <Tag
-          bordered={false}
+          variant="filled"
           color={trendStatus}
           icon={item.isUp ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
           style={{

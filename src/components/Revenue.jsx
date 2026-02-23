@@ -12,7 +12,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Card, Typography, Row, Col, Divider } from "antd";
+import { Card, Typography, Row, Col } from "antd";
 import CustomTooltip from "./CustomTooltip";
 
 const { Title, Text } = Typography;
@@ -42,12 +42,12 @@ export default function Revenue() {
 
   return (
     <Card
-      bordered={false}
+      variant={false}
       style={{
         borderRadius: 12,
         boxShadow: "0 1px 2px rgba(0, 0, 0, 0.03)",
       }}
-      bodyStyle={{ padding: "20px 0" }}
+      styles={{ body: { padding: "20px 0" } }}
     >
       <Title level={4} style={{ paddingLeft: 20, marginBottom: 20 }}>
         Revenue
@@ -58,7 +58,7 @@ export default function Revenue() {
           backgroundColor: "#f9fbfb",
           borderTop: "1px dashed #e5e7eb",
           borderBottom: "1px dashed #e5e7eb",
-          padding: "10px 0",
+
           marginBottom: 30,
         }}
       >
@@ -66,20 +66,27 @@ export default function Revenue() {
           {stats.map((stat, index) => (
             <Col
               key={stat.label}
-              span={6}
+              xs={12}
+              sm={6}
               style={{
                 textAlign: "center",
-                borderRight:
-                  index !== stats.length - 1 ? "1px dashed #e5e7eb" : "none",
+                // padding: "10px 0",
               }}
             >
-              <div style={{ padding: "10px 0" }}>
+              <div
+                style={{
+                  borderRight:
+                    index === stats.length - 1 ? "none" : "1px dashed #e5e7eb",
+                  padding: "20px 0",
+                }}
+              >
                 <Title
                   level={3}
                   style={{
                     margin: 0,
                     color: stat.isHighlight ? "#10b981" : "#1f2937",
                     fontWeight: 800,
+                    fontSize: "clamp(1.2rem, 4vw, 1.75rem)",
                   }}
                 >
                   {stat.value}
@@ -87,7 +94,7 @@ export default function Revenue() {
                 <Text
                   type="secondary"
                   style={{
-                    fontSize: 12,
+                    fontSize: 11,
                     textTransform: "uppercase",
                     fontWeight: 600,
                   }}
@@ -100,11 +107,11 @@ export default function Revenue() {
         </Row>
       </div>
 
-      <div style={{ width: "100%", height: 350, padding: "0 20px" }}>
+      <div style={{ width: "100%", height: 350, padding: "0 10px" }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={data}
-            margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+            margin={{ top: 10, right: 10, left: -25, bottom: 0 }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
@@ -116,12 +123,13 @@ export default function Revenue() {
               dataKey="name"
               axisLine={{ stroke: "#f0f0f0" }}
               tickLine={false}
-              tick={{ fill: "#9ca3af", fontSize: 12 }}
+              tick={{ fill: "#9ca3af", fontSize: 11 }}
+              interval="preserveStartEnd"
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "#9ca3af", fontSize: 12 }}
+              tick={{ fill: "#9ca3af", fontSize: 11 }}
             />
             <Tooltip content={<CustomTooltip />} />
             <Legend
@@ -131,7 +139,7 @@ export default function Revenue() {
               formatter={(value) => (
                 <Text
                   strong
-                  style={{ color: "#4b5563", fontSize: 13, marginLeft: 5 }}
+                  style={{ color: "#4b5563", fontSize: 12, marginLeft: 5 }}
                 >
                   {value.charAt(0).toUpperCase() + value.slice(1)}
                 </Text>
@@ -140,7 +148,7 @@ export default function Revenue() {
             <Bar
               dataKey="earnings"
               fill="#2ebfac"
-              barSize={20}
+              barSize={15}
               radius={[4, 4, 0, 0]}
             />
             <Area

@@ -1,62 +1,75 @@
-"use client";
+import { Card, Table, Progress, Tag, Button, Typography } from "antd";
 
-import { AlertTriangle } from "lucide-react";
+const { Title, Text } = Typography;
 
-const lowStockProducts = [
-  {
-    name: "Wireless Headphones",
-    stock: 4,
-    img: "https://nextjs.spruko.com/velvet-js/preview/assets/images/ecommerce/jpg/3.jpg",
-  },
-  {
-    name: "Smart Watch",
-    stock: 2,
-    img: "https://nextjs.spruko.com/velvet-js/preview/assets/images/ecommerce/jpg/3.jpg",
-  },
-  {
-    name: "Gaming Mouse",
-    stock: 5,
-    img: "https://nextjs.spruko.com/velvet-js/preview/assets/images/ecommerce/jpg/3.jpg",
-  },
-  {
-    name: "Bluetooth Speaker",
-    stock: 3,
-    img: "https://nextjs.spruko.com/velvet-js/preview/assets/images/ecommerce/jpg/3.jpg",
-  },
+const lowStockData = [
+  { key: "1", name: "Smart Watch", count: 2, total: 50, tag: "HIGH DEMAND" },
+  { key: "2", name: "Bluetooth Speaker", count: 3, total: 40, tag: "STEADY" },
+  { key: "3", name: "Gaming Mouse", count: 5, total: 60, tag: "FLASH SALE" },
+  { key: "4", name: "Gaming Mouse", count: 5, total: 60, tag: "FLASH SALE" },
 ];
 
-export default function LowStockAlert() {
+export default function LowStockCompact() {
   return (
-    <div className="card bg-white shadow-sm border border-slate-100 p-6">
-      {/* Header */}
-      <h3 className="font-bold text-lg mb-6 border-b pb-4">Low Stock Alert</h3>
-
-      {/* List */}
-      <div className="space-y-4">
-        {lowStockProducts.map((p, i) => (
-          <div key={i} className="flex items-center justify-between gap-4">
-            {/* Product Info */}
-            <div className="flex items-center gap-3">
-              <img
-                src={p.img}
-                alt=""
-                className="w-12 h-12 rounded-lg object-cover"
-              />
-
-              <div>
-                <p className="font-semibold text-sm">{p.name}</p>
-                <p className="text-xs text-slate-500">Only {p.stock} left</p>
-              </div>
+    <Card
+      title={
+        <Title level={5} style={{ margin: 0, fontWeight: 700 }}>
+          Low Stock Alert
+        </Title>
+      }
+      extra={
+        <Button type="link" size="small">
+          View All
+        </Button>
+      }
+      style={{ borderRadius: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}
+    >
+      {lowStockData.map((item) => (
+        <div key={item.key} style={{ marginBottom: 16 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: 4,
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <Text strong style={{ fontSize: 13 }}>
+                {item.name}
+              </Text>
+              <Text type="secondary" style={{ fontSize: 10 }}>
+                {item.tag}
+              </Text>
             </div>
-
-            {/* Warning Badge */}
-            <div className="flex items-center gap-1 text-amber-500 font-bold text-sm">
-              <AlertTriangle size={16} />
-              Low
+            <div style={{ textAlign: "right" }}>
+              <Text type="danger" strong>
+                {item.count}
+              </Text>
+              <Text type="secondary" style={{ fontSize: 12 }}>
+                {" "}
+                / {item.total}
+              </Text>
             </div>
           </div>
-        ))}
-      </div>
-    </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Progress
+              percent={(item.count / item.total) * 100}
+              showInfo={false}
+              strokeColor={item.count < 3 ? "#ff4d4f" : "#faad14"}
+              size="small"
+              strokeWidth={6}
+            />
+            <Button
+              size="small"
+              type="primary"
+              ghost
+              style={{ fontSize: 10, height: 22 }}
+            >
+              Restock
+            </Button>
+          </div>
+        </div>
+      ))}
+    </Card>
   );
 }
