@@ -12,8 +12,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { ShoppingCart, DollarSign, RotateCcw, TrendingUp } from "lucide-react";
+import { Card, Typography, Row, Col, Divider } from "antd";
 import CustomTooltip from "./CustomTooltip";
+
+const { Title, Text } = Typography;
 
 const data = [
   { name: "Jan", orders: 40, earnings: 90, refunds: 10 },
@@ -35,121 +37,108 @@ export default function Revenue() {
     { label: "Orders", value: "7,585" },
     { label: "Earnings", value: "2,289TK" },
     { label: "Refunds", value: "367" },
-    { label: "Conversation", value: "18.92%" },
+    { label: "Conversation", value: "18.92%", isHighlight: true },
   ];
 
   return (
-    <div
+    <Card
+      bordered={false}
       style={{
-        padding: "15px 0px",
-        background: "#fff",
-        borderRadius: 8,
-        border: "1px solid #f0f0f0",
+        borderRadius: 12,
+        boxShadow: "0 1px 2px rgba(0, 0, 0, 0.03)",
       }}
+      bodyStyle={{ padding: "20px 0" }}
     >
-      <h2
-        style={{
-          fontSize: 18,
-          fontWeight: "bold",
-          marginBottom: 20,
-          paddingLeft: 15,
-        }}
-      >
+      <Title level={4} style={{ paddingLeft: 20, marginBottom: 20 }}>
         Revenue
-      </h2>
+      </Title>
 
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4,1fr)",
-          borderTop: "1px dashed #eee",
-          borderBottom: "1px dashed #eee",
-          padding: "5px 0",
-          marginBottom: 30,
           backgroundColor: "#f9fbfb",
+          borderTop: "1px dashed #e5e7eb",
+          borderBottom: "1px dashed #e5e7eb",
+          padding: "10px 0",
+          marginBottom: 30,
         }}
       >
-        {stats.map((stat) => (
-          <div
-            key={stat.label}
-            style={{
-              padding: 15,
-              textAlign: "center",
-              borderRight:
-                stat.label !== "Conversation" ? "1px dashed #eee" : "none",
-            }}
-          >
-            <div
+        <Row align="middle">
+          {stats.map((stat, index) => (
+            <Col
+              key={stat.label}
+              span={6}
               style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                color: stat.label === "Conversation" ? "#10b981" : "#333",
+                textAlign: "center",
+                borderRight:
+                  index !== stats.length - 1 ? "1px dashed #e5e7eb" : "none",
               }}
             >
-              {stat.value}
-            </div>
-            <div
-              style={{
-                fontSize: 12,
-                color: "#999",
-              }}
-            >
-              {stat.label}
-            </div>
-          </div>
-        ))}
+              <div style={{ padding: "10px 0" }}>
+                <Title
+                  level={3}
+                  style={{
+                    margin: 0,
+                    color: stat.isHighlight ? "#10b981" : "#1f2937",
+                    fontWeight: 800,
+                  }}
+                >
+                  {stat.value}
+                </Title>
+                <Text
+                  type="secondary"
+                  style={{
+                    fontSize: 12,
+                    textTransform: "uppercase",
+                    fontWeight: 600,
+                  }}
+                >
+                  {stat.label}
+                </Text>
+              </div>
+            </Col>
+          ))}
+        </Row>
       </div>
 
-      {/* Chart */}
-      <div style={{ width: "100%", height: 330 }}>
+      <div style={{ width: "100%", height: 350, padding: "0 20px" }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={data}
-            margin={{ top: 0, right: 20, left: 0, bottom: 0 }}
-            // style={{ marginRight: 20 }}
+            margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
               horizontal={false}
               vertical={true}
-              stroke="#ccc"
-              opacity={0.5}
+              stroke="#f0f0f0"
             />
-
             <XAxis
               dataKey="name"
-              axisLine={{ stroke: "#e5e7eb" }}
+              axisLine={{ stroke: "#f0f0f0" }}
               tickLine={false}
-              padding={{ left: 0, right: 0 }}
+              tick={{ fill: "#9ca3af", fontSize: 12 }}
             />
             <YAxis
-              axisLine={{ stroke: "#e5e7eb" }}
+              axisLine={false}
               tickLine={false}
-              padding={{ left: 0, right: 0 }}
+              tick={{ fill: "#9ca3af", fontSize: 12 }}
             />
             <Tooltip content={<CustomTooltip />} />
-
             <Legend
+              verticalAlign="bottom"
+              height={36}
               iconType="circle"
               formatter={(value) => (
-                <span style={{ color: "#333" }}>
-                  {value?.charAt(0).toUpperCase() + value?.slice(1)}
-                </span>
+                <Text
+                  strong
+                  style={{ color: "#4b5563", fontSize: 13, marginLeft: 5 }}
+                >
+                  {value.charAt(0).toUpperCase() + value.slice(1)}
+                </Text>
               )}
             />
-
-            {/* <Bar dataKey="earnings" fill="#2ebfac" barSize={16} />
-            <Area dataKey="orders" stroke="#4f46e5" fill="#eef2ff" />
-            <Line
-              dataKey="refunds"
-              stroke="#ef4444"
-              strokeDasharray="5 5"
-              dot={false}
-            /> */}
-
             <Bar
               dataKey="earnings"
-              //   name="Earnings"
               fill="#2ebfac"
               barSize={20}
               radius={[4, 4, 0, 0]}
@@ -157,24 +146,26 @@ export default function Revenue() {
             <Area
               type="monotone"
               dataKey="orders"
-              //   name="Orders"
-              fill="#eef2ff"
+              fill="url(#colorOrders)"
               stroke="#4f46e5"
               strokeWidth={2}
             />
             <Line
               type="monotone"
               dataKey="refunds"
-              //   name="Refunds"
               stroke="#ef4444"
               strokeWidth={2}
               dot={false}
-              // strokeDasharray="5 5"
-              // dot={{ r: 4 }}
             />
+            <defs>
+              <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.1} />
+                <stop offset="95%" stopColor="#4f46e5" stopOpacity={0.01} />
+              </linearGradient>
+            </defs>
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </Card>
   );
 }

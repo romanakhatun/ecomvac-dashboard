@@ -1,39 +1,29 @@
 "use client";
 import React from "react";
-import dynamic from "next/dynamic";
+import { Pencil, Trash } from "lucide-react";
 import {
-  ShoppingCart,
-  DollarSign,
-  Truck,
-  TrendingUp,
-  Clock,
-  RotateCw,
-  CheckCircle,
-  XCircle,
-  Pencil,
-  Trash,
-} from "lucide-react";
+  ShoppingCartOutlined,
+  DollarCircleOutlined,
+  TruckOutlined,
+  LineChartOutlined,
+} from "@ant-design/icons";
 import Image from "next/image";
-import StateCard from "@/components/StateCard";
-import SalesAnalyticsChart from "@/components/SalesAnalyticsChart";
 import RecentOrdersTable from "@/components/RecentOrdersTable";
 import PendingTrendCard from "@/components/PendingTrendCard";
 import ProcessingTrendCard from "@/components/ProcessingTrendCard";
 import DeliveredTrendCard from "@/components/DeliveredTrendCard";
 import Revenue from "@/components/Revenue";
+import StateCard2 from "@/components/StateCard2";
+import SalesBySource from "@/components/SalesBySource";
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-
-// --- MOCK DATA ---
 const KPI_DATA = [
   {
     title: "Total Order",
     value: "4 Orders",
     sub: "Today: 0",
-    icon: ShoppingCart,
-    color: "text-blue-600",
-    bg: "bg-blue-50",
-    border: "border-blue-200",
+    icon: ShoppingCartOutlined,
+    colorHex: "#2563eb", // Blue-600
+    bgHex: "#eff6ff", // Blue-50
     trend: "+21%",
     isUp: true,
   },
@@ -41,10 +31,9 @@ const KPI_DATA = [
     title: "Total Order Amount",
     value: "46,160 TK",
     sub: "Avg: 11,540 TK",
-    icon: DollarSign,
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
-    border: "border-emerald-200",
+    icon: DollarCircleOutlined,
+    colorHex: "#059669", // Emerald-600
+    bgHex: "#ecfdf5", // Emerald-50
     trend: "-2%",
     isUp: false,
   },
@@ -52,10 +41,9 @@ const KPI_DATA = [
     title: "Total Shipping Price",
     value: "0 TK",
     sub: "4 Shipments",
-    icon: Truck,
-    color: "text-orange-600",
-    bg: "bg-orange-50",
-    border: "border-orange-200",
+    icon: TruckOutlined,
+    colorHex: "#d97706", // Orange-600
+    bgHex: "#fff7ed", // Orange-50
     trend: "+12%",
     isUp: true,
   },
@@ -63,10 +51,9 @@ const KPI_DATA = [
     title: "Profit (After Delivery)",
     value: "0 TK",
     sub: "Target: 50k",
-    icon: TrendingUp,
-    color: "text-purple-600",
-    bg: "bg-purple-50",
-    border: "border-purple-200",
+    icon: LineChartOutlined,
+    colorHex: "#7c3aed", // Purple-600
+    bgHex: "#f5f3ff", // Purple-50
     trend: "+5%",
     isUp: true,
   },
@@ -103,12 +90,12 @@ const KPI_DATA = [
 //   },
 // ];
 
-const SOURCE_SALES_DATA = [
-  { name: "Website", sales: 46160 },
-  { name: "WhatsApp", sales: 18500 },
-  { name: "Messenger", sales: 9200 },
-  { name: "Landing Page", sales: 12300 },
-];
+// const SOURCE_SALES_DATA = [
+//   { name: "Website", sales: 46160 },
+//   { name: "WhatsApp", sales: 18500 },
+//   { name: "Messenger", sales: 9200 },
+//   { name: "Landing Page", sales: 12300 },
+// ];
 
 const products = [
   {
@@ -142,24 +129,24 @@ const products = [
 ];
 
 export default function EcomvacDashboard() {
-  const donutOptions = {
-    labels: ["Electronics", "Laptops", "Fashion", "Home"],
-    colors: ["#ff99af", "#93c5fd", "#c084fc", "#fbbf24"],
-    plotOptions: {
-      pie: {
-        donut: {
-          size: "75%",
-          labels: {
-            show: true,
-            total: { show: true, label: "Sales", formatter: () => "46k" },
-          },
-        },
-      },
-    },
-    legend: { position: "bottom" },
-    dataLabels: { enabled: false },
-    stroke: { show: false },
-  };
+  // const donutOptions = {
+  //   labels: ["Electronics", "Laptops", "Fashion", "Home"],
+  //   colors: ["#ff99af", "#93c5fd", "#c084fc", "#fbbf24"],
+  //   plotOptions: {
+  //     pie: {
+  //       donut: {
+  //         size: "75%",
+  //         labels: {
+  //           show: true,
+  //           total: { show: true, label: "Sales", formatter: () => "46k" },
+  //         },
+  //       },
+  //     },
+  //   },
+  //   legend: { position: "bottom" },
+  //   dataLabels: { enabled: false },
+  //   stroke: { show: false },
+  // };
 
   const stockStyle = {
     "In Stock": "bg-emerald-100 text-emerald-600",
@@ -169,7 +156,7 @@ export default function EcomvacDashboard() {
 
   return (
     <div className="text-slate-800">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-5">
         <div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tight">
             Analytics Dashboard
@@ -179,13 +166,11 @@ export default function EcomvacDashboard() {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         {KPI_DATA.map((item, i) => (
-          <StateCard item={item} key={i} />
+          <StateCard2 item={item} key={i} />
         ))}
       </div>
-
-      <div className="mb-8"></div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* <div className="card bg-white shadow-sm lg:col-span-2 p-6 border border-slate-100">
@@ -199,7 +184,11 @@ export default function EcomvacDashboard() {
           <Revenue />
         </div>
 
-        <div className="card bg-white shadow-sm border border-slate-100 p-6">
+        <SalesBySource />
+        {/* <Card
+          className="shadow-sm border border-slate-100"
+          styles={{ body: { padding: 24 } }}
+        >
           <h3 className="font-bold text-lg mb-6 border-b pb-6 border-[#f0f0f0]">
             Sales by Source
           </h3>
@@ -232,7 +221,7 @@ export default function EcomvacDashboard() {
             type="donut"
             height={300}
           />
-        </div>
+        </Card> */}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <PendingTrendCard />
