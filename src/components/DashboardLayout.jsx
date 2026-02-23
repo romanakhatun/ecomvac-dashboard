@@ -19,7 +19,7 @@ const DashboardLayout = ({ children }) => {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout>
       <Sidebar
         collapsed={collapsed}
         setCollapsed={setCollapsed}

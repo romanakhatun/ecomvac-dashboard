@@ -168,7 +168,7 @@ export default function EcomvacDashboard() {
   };
 
   return (
-    <div className="p-4 lg:p-8  min-h-screen text-slate-800">
+    <div className="text-slate-800">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tight">
@@ -185,16 +185,18 @@ export default function EcomvacDashboard() {
         ))}
       </div>
 
-      <div className="mb-8">
-        <Revenue />
-      </div>
+      <div className="mb-8"></div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <div className="card bg-white shadow-sm lg:col-span-2 p-6 border border-slate-100">
+        {/* <div className="card bg-white shadow-sm lg:col-span-2 p-6 border border-slate-100">
           <h3 className="font-bold text-lg mb-6 border-b pb-6 border-[#f0f0f0]">
             Sales Statistics
           </h3>
           <SalesAnalyticsChart />
+        </div> */}
+
+        <div className="lg:col-span-2">
+          <Revenue />
         </div>
 
         <div className="card bg-white shadow-sm border border-slate-100 p-6">

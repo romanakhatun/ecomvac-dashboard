@@ -14,7 +14,7 @@ const Header = ({ onToggleSidebar }) => {
     <AntHeader
       style={{
         background: "#fff",
-        padding: "0 24px",
+        padding: "30px 25px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

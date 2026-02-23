@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { ShoppingCart, DollarSign, RotateCcw, TrendingUp } from "lucide-react";
+import CustomTooltip from "./CustomTooltip";
 
 const data = [
   { name: "Jan", orders: 40, earnings: 90, refunds: 10 },
@@ -29,50 +30,31 @@ const data = [
   { name: "Dec", orders: 68, earnings: 35, refunds: 32 },
 ];
 
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div
-        style={{
-          backgroundColor: "#fff",
-          border: "1px solid #ddd",
-          padding: 10,
-          borderRadius: 5,
-        }}
-      >
-        <p style={{ fontWeight: "bold" }}>{label}</p>
-        {payload.map((item) => (
-          <div key={item.name} style={{ color: item.color, fontSize: 12 }}>
-            {item.name}:{" "}
-            {item.name === "earnings" ? `${item.value}TK` : item.value}
-          </div>
-        ))}
-      </div>
-    );
-  }
-  return null;
-};
-
 export default function Revenue() {
-  const [activeIndex, setActiveIndex] = React.useState(null);
-
   const stats = [
-    { label: "Orders", value: "7,585", icon: <ShoppingCart size={16} /> },
-    { label: "Earnings", value: "2,289TK", icon: <DollarSign size={16} /> },
-    { label: "Refunds", value: "367", icon: <RotateCcw size={16} /> },
-    { label: "Conversation", value: "18.92%", icon: <TrendingUp size={16} /> },
+    { label: "Orders", value: "7,585" },
+    { label: "Earnings", value: "2,289TK" },
+    { label: "Refunds", value: "367" },
+    { label: "Conversation", value: "18.92%" },
   ];
 
   return (
     <div
       style={{
-        padding: 24,
+        padding: "15px 0px",
         background: "#fff",
         borderRadius: 8,
         border: "1px solid #f0f0f0",
       }}
     >
-      <h2 style={{ fontSize: 18, fontWeight: "bold", marginBottom: 20 }}>
+      <h2
+        style={{
+          fontSize: 18,
+          fontWeight: "bold",
+          marginBottom: 20,
+          paddingLeft: 15,
+        }}
+      >
         Revenue
       </h2>
 
@@ -82,14 +64,16 @@ export default function Revenue() {
           gridTemplateColumns: "repeat(4,1fr)",
           borderTop: "1px dashed #eee",
           borderBottom: "1px dashed #eee",
-          padding: "20px 0",
+          padding: "5px 0",
           marginBottom: 30,
+          backgroundColor: "#f9fbfb",
         }}
       >
         {stats.map((stat) => (
           <div
             key={stat.label}
             style={{
+              padding: 15,
               textAlign: "center",
               borderRight:
                 stat.label !== "Conversation" ? "1px dashed #eee" : "none",
@@ -106,33 +90,27 @@ export default function Revenue() {
             </div>
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                gap: 5,
                 fontSize: 12,
                 color: "#999",
               }}
             >
-              {stat.icon} {stat.label}
+              {stat.label}
             </div>
           </div>
         ))}
       </div>
 
       {/* Chart */}
-      <div style={{ width: "100%", height: 400 }}>
+      <div style={{ width: "100%", height: 330 }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={data}
-            onMouseMove={(state) => {
-              if (state?.activeTooltipIndex !== undefined) {
-                setActiveIndex(state.activeTooltipIndex);
-              }
-            }}
-            onMouseLeave={() => setActiveIndex(null)}
+            margin={{ top: 0, right: 20, left: 0, bottom: 0 }}
+            // style={{ marginRight: 20 }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
+              horizontal={false}
               vertical={true}
               stroke="#ccc"
               opacity={0.5}
@@ -142,8 +120,13 @@ export default function Revenue() {
               dataKey="name"
               axisLine={{ stroke: "#e5e7eb" }}
               tickLine={false}
+              padding={{ left: 0, right: 0 }}
             />
-            <YAxis axisLine={{ stroke: "#e5e7eb" }} tickLine={false} />
+            <YAxis
+              axisLine={{ stroke: "#e5e7eb" }}
+              tickLine={false}
+              padding={{ left: 0, right: 0 }}
+            />
             <Tooltip content={<CustomTooltip />} />
 
             <Legend
@@ -155,14 +138,39 @@ export default function Revenue() {
               )}
             />
 
-            <Bar dataKey="earnings" fill="#2ebfac" barSize={20} />
+            {/* <Bar dataKey="earnings" fill="#2ebfac" barSize={16} />
             <Area dataKey="orders" stroke="#4f46e5" fill="#eef2ff" />
             <Line
               dataKey="refunds"
               stroke="#ef4444"
               strokeDasharray="5 5"
               dot={false}
-              //   dot={{ fill: "red", stroke: "none", r: 3 }}
+            /> */}
+
+            <Bar
+              dataKey="earnings"
+              //   name="Earnings"
+              fill="#2ebfac"
+              barSize={20}
+              radius={[4, 4, 0, 0]}
+            />
+            <Area
+              type="monotone"
+              dataKey="orders"
+              //   name="Orders"
+              fill="#eef2ff"
+              stroke="#4f46e5"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="refunds"
+              //   name="Refunds"
+              stroke="#ef4444"
+              strokeWidth={2}
+              dot={false}
+              // strokeDasharray="5 5"
+              // dot={{ r: 4 }}
             />
           </ComposedChart>
         </ResponsiveContainer>

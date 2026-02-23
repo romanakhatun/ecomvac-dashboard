@@ -81,7 +81,7 @@ export default function RecentOrders() {
 
           <tbody className="text-sm text-center">
             {orders.map((order, i) => (
-              <tr key={order.id} className="hover:bg-slate-50">
+              <tr key={i} className="hover:bg-slate-50">
                 <td className="text-center">{i + 1}</td>
                 <td className="px-6 py-5">
                   <div className="font-semibold text-left">Feb 15, 2026</div>

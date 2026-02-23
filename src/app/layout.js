@@ -1,6 +1,19 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import DashboardLayout from "@/components/DashboardLayout";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"], // choose what you need
+  variable: "--font-poppins", // optional if using CSS variables
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-roboto",
+});
 
 export const metadata = {
   title: "Create Next App",
