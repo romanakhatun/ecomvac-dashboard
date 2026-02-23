@@ -14,7 +14,7 @@ export default function LowStockCompact() {
     <Card
       title={
         <Title level={4} style={{ margin: 0 }}>
-          Recent Orders
+          Low Stock Alert
         </Title>
       }
       extra={
@@ -22,10 +22,10 @@ export default function LowStockCompact() {
           View All
         </Button>
       }
-      style={{ borderRadius: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}
+      style={{ borderRadius: 16, boxShadow: "0 1px 3px rgba(0,0,0,0.02)" }}
     >
       {lowStockData.map((item) => (
-        <div key={item.key} style={{ marginBottom: 16 }}>
+        <div key={item.key} style={{ marginBottom: 26 }}>
           <div
             style={{
               display: "flex",
@@ -34,7 +34,7 @@ export default function LowStockCompact() {
             }}
           >
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <Text strong style={{ fontSize: 13 }}>
+              <Text strong style={{ fontSize: 15 }}>
                 {item.name}
               </Text>
               <Text type="secondary" style={{ fontSize: 10 }}>

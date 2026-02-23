@@ -156,13 +156,13 @@ export default function Revenue() {
               dataKey="orders"
               fill="url(#colorOrders)"
               stroke="#4f46e5"
-              strokeWidth={2}
+              size={2}
             />
             <Line
               type="monotone"
               dataKey="refunds"
               stroke="#ef4444"
-              strokeWidth={2}
+              size={2}
               dot={false}
             />
             <defs>

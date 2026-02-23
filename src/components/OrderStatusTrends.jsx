@@ -164,7 +164,7 @@ export default function OrderStatusTrends() {
                       type="monotone"
                       dataKey="v"
                       stroke={item.color}
-                      strokeWidth={2.5}
+                      size={2.5}
                       fillOpacity={1}
                       fill={`url(#gradient-${i})`}
                       isAnimationActive={true}

@@ -69,7 +69,7 @@ const StateCard2 = ({ item }) => {
       {/* Footer (Trend & Sub) */}
       <Flex align="center" gap={8} style={{ marginTop: "16px" }}>
         <Tag
-          bordered={false}
+          variant="filled"
           color={trendStatus === "success" ? "green" : "red"}
           icon={item.isUp ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
           style={{
