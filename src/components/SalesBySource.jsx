@@ -42,6 +42,8 @@ const SalesBySourceInteractive = () => {
               dataKey="sales"
               cx="50%"
               cy="50%"
+              animationDuration={400}
+              animationBegin={0}
               innerRadius={80}
               outerRadius={120}
               paddingAngle={2}
