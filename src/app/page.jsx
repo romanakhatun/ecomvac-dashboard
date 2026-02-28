@@ -13,6 +13,7 @@ import SalesBySource from "@/components/SalesBySource";
 import LowStockAlert from "@/components/LowStockAlert";
 import TopSellingProducts from "@/components/TopSellingProducts";
 import OrderStatusTrends from "@/components/OrderStatusTrends";
+import BangladeshDistrictMap from "@/components/BangladeshDistrictMap";
 
 const KPI_DATA = [
   {
@@ -57,64 +58,7 @@ const KPI_DATA = [
   },
 ];
 
-// const STATUS_DATA = [
-//   {
-//     title: "Total Pending Order",
-//     value: "37,960 TK",
-//     count: "2 Orders",
-//     icon: Clock,
-//     color: "text-amber-500",
-//   },
-//   {
-//     title: "Total Processing Order",
-//     value: "0 TK",
-//     count: "0 Orders",
-//     icon: RotateCw,
-//     color: "text-info",
-//   },
-//   {
-//     title: "Total Delivered Order",
-//     value: "0 TK",
-//     count: "0 Orders",
-//     icon: CheckCircle,
-//     color: "text-success",
-//   },
-//   {
-//     title: "Total Cancelled Orders",
-//     value: "0 TK",
-//     count: "0 Orders",
-//     icon: XCircle,
-//     color: "text-error",
-//   },
-// ];
-
-// const SOURCE_SALES_DATA = [
-//   { name: "Website", sales: 46160 },
-//   { name: "WhatsApp", sales: 18500 },
-//   { name: "Messenger", sales: 9200 },
-//   { name: "Landing Page", sales: 12300 },
-// ];
-
 export default function EcomvacDashboard() {
-  // const donutOptions = {
-  //   labels: ["Electronics", "Laptops", "Fashion", "Home"],
-  //   colors: ["#ff99af", "#93c5fd", "#c084fc", "#fbbf24"],
-  //   plotOptions: {
-  //     pie: {
-  //       donut: {
-  //         size: "75%",
-  //         labels: {
-  //           show: true,
-  //           total: { show: true, label: "Sales", formatter: () => "46k" },
-  //         },
-  //       },
-  //     },
-  //   },
-  //   legend: { position: "bottom" },
-  //   dataLabels: { enabled: false },
-  //   stroke: { show: false },
-  // };
-
   return (
     <div className="text-slate-800">
       <div className="flex justify-between items-center mb-5">
@@ -139,44 +83,8 @@ export default function EcomvacDashboard() {
         </div>
 
         <SalesBySource />
-        {/* <Card
-          className="shadow-sm border border-slate-100"
-          styles={{ body: { padding: 24 } }}
-        >
-          <h3 className="font-bold text-lg mb-6 border-b pb-6 border-[#f0f0f0]">
-            Sales by Source
-          </h3>
-
-          <Chart
-            options={{
-              ...donutOptions,
-              labels: SOURCE_SALES_DATA.map((s) => s.name),
-              plotOptions: {
-                pie: {
-                  donut: {
-                    size: "75%",
-                    labels: {
-                      show: true,
-                      total: {
-                        show: true,
-                        label: "Sales",
-                        formatter: () =>
-                          SOURCE_SALES_DATA.reduce(
-                            (sum, s) => sum + s.sales,
-                            0,
-                          ).toLocaleString() + " TK",
-                      },
-                    },
-                  },
-                },
-              },
-            }}
-            series={SOURCE_SALES_DATA.map((s) => s.sales)}
-            type="donut"
-            height={300}
-          />
-        </Card> */}
       </div>
+      <BangladeshDistrictMap />
       <>
         <OrderStatusTrends />
       </>

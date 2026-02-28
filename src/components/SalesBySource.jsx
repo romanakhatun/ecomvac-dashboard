@@ -50,7 +50,7 @@ const SalesBySourceInteractive = () => {
               stroke="none"
               onMouseEnter={(_, index) => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
-              activeShape={{ outerRadius: 122 }}
+              activeShape={{ outerRadius: 123 }}
               activeIndex={activeIndex}
               labelLine={false}
               label={({
