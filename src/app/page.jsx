@@ -85,9 +85,9 @@ export default function EcomvacDashboard() {
         <SalesBySource />
       </div>
       <BangladeshDistrictMap />
-      <>
-        <OrderStatusTrends />
-      </>
+
+      <OrderStatusTrends />
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-5">
         <LowStockAlert />
 

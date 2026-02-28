@@ -59,7 +59,6 @@ export default function BangladeshDistrictMap() {
         style={{
           position: "relative",
           height: "500px",
-          // background: "#fcfcfc",
           borderRadius: "12px",
         }}
       >
