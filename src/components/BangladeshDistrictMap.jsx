@@ -50,7 +50,7 @@ export default function BangladeshDistrictMap() {
         borderRadius: "16px",
         maxWidth: "600px",
         background: "#fff",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        boxShadow: "0 1px 2px rgba(0, 0, 0, 0.03)",
         border: "1px solid #f1f5f9",
         marginTop: 16,
         position: "relative",
