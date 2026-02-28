@@ -15,8 +15,12 @@ const COLORS = {
 };
 
 export default function BangladeshDistrictMap() {
-  const [hoveredDistrict, setHoveredDistrict] = useState(null);
+  // State to store the currently hovered district information
+  const [hoveredData, setHoveredData] = useState(null);
+  // State to track mouse position for the floating tooltip
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
+  // Map projection setup to center Bangladesh within the SVG frame
   const projection = useMemo(() => {
     return geoMercator()
       .center([90.35, 23.95])
@@ -26,19 +30,19 @@ export default function BangladeshDistrictMap() {
 
   const pathGenerator = geoPath().projection(projection);
 
-  const districtData = useMemo(() => {
-    return bdGeoJSON.features.map((f) => {
-      const name = f.properties.ADM2_EN;
-      const centroid = pathGenerator.centroid(f);
-      return {
-        id: f.id,
-        name: name,
-        x: centroid[0],
-        y: centroid[1],
-        sales: 40,
-      };
-    });
-  }, [pathGenerator]);
+  // Processing district data for the list displayed below the map
+  const districtList = useMemo(() => {
+    return bdGeoJSON.features.slice(0, 3).map((f) => ({
+      id: f.id,
+      name: f.properties.ADM2_EN,
+      sales: 40,
+    }));
+  }, []);
+
+  // Update mouse coordinates as the user moves over the container
+  const handleMouseMove = (e) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
 
   return (
     <Card
@@ -46,9 +50,10 @@ export default function BangladeshDistrictMap() {
         borderRadius: "16px",
         maxWidth: "600px",
         background: "#fff",
-        boxShadow: "0 1px 2px rgba(0, 0, 0, 0.03)",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
         border: "1px solid #f1f5f9",
         marginTop: 16,
+        position: "relative",
       }}
     >
       <Title level={4} style={{ marginBottom: "0" }}>
@@ -60,50 +65,70 @@ export default function BangladeshDistrictMap() {
           position: "relative",
           height: "500px",
           borderRadius: "12px",
+          cursor: "pointer",
         }}
+        onMouseMove={handleMouseMove}
       >
         <svg viewBox="0 0 400 500" style={{ width: "100%", height: "100%" }}>
           <g>
-            {bdGeoJSON.features.map((feature) => (
-              <path
-                key={feature.id}
-                d={pathGenerator(feature)}
-                fill={
-                  hoveredDistrict === feature.id ? "#e2e8f0" : COLORS.mapFill
-                }
-                stroke={COLORS.mapStroke}
-                strokeWidth="0.5"
-                onMouseEnter={() => setHoveredDistrict(feature.id)}
-                onMouseLeave={() => setHoveredDistrict(null)}
-                style={{ transition: "0.2s" }}
-              />
-            ))}
+            {bdGeoJSON.features.map((feature) => {
+              const name = feature.properties.ADM2_EN;
+              const sales = 40; // Static placeholder value; can be replaced with dynamic data
+
+              return (
+                <path
+                  key={feature.id}
+                  d={pathGenerator(feature)}
+                  fill={
+                    hoveredData?.id === feature.id ? "#e2e8f0" : COLORS.mapFill
+                  }
+                  stroke={COLORS.mapStroke}
+                  strokeWidth="0.5"
+                  onMouseEnter={() =>
+                    setHoveredData({ id: feature.id, name, sales })
+                  }
+                  onMouseLeave={() => setHoveredData(null)}
+                  style={{ transition: "0.2s" }}
+                />
+              );
+            })}
           </g>
-
-          {districtData.map((dist) => (
-            <g key={dist.id}>
-              <circle cx={dist.x} cy={dist.y} r="3" fill={COLORS.teal} />
-
-              <text
-                x={dist.x + 5}
-                y={dist.y + 3}
-                style={{
-                  fontSize: "9px",
-                  fontWeight: "600",
-                  fill: COLORS.textDark,
-                  pointerEvents: "none",
-                  textShadow: "1px 1px 2px white",
-                }}
-              >
-                {dist.name}
-              </text>
-            </g>
-          ))}
         </svg>
+
+        {/* --- Dynamic Floating Tooltip (Visible on Hover) --- */}
+        {hoveredData && (
+          <div
+            style={{
+              position: "fixed",
+              left: mousePos.x + 15,
+              top: mousePos.y + 15,
+              backgroundColor: "rgba(30, 41, 59, 0.9)", // Dark theme tooltip background
+              color: "#fff",
+              padding: "8px 12px",
+              borderRadius: "6px",
+              fontSize: "12px",
+              pointerEvents: "none", // Ensures tooltip doesn't interfere with mouse events
+              zIndex: 1000,
+              boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+            }}
+          >
+            <div
+              style={{
+                fontWeight: "bold",
+                borderBottom: "1px solid rgba(255,255,255,0.2)",
+                marginBottom: "4px",
+              }}
+            >
+              {hoveredData.name}
+            </div>
+            <div>Sales: {hoveredData.sales}%</div>
+          </div>
+        )}
       </div>
 
+      {/* Sales Summary Progress Bar Section */}
       <div style={{ marginTop: "24px" }}>
-        {districtData.slice(0, 3).map((item) => (
+        {districtList.map((item) => (
           <div key={item.id} style={{ marginBottom: "16px" }}>
             <Flex
               justify="space-between"
